@@ -1,0 +1,30 @@
+---
+- name: Git clone web page
+  git:
+    repo: https://github.com/ysmir81/test_ansible
+    dest: /var/tmp/
+
+- name: Copy web page
+  copy:
+    src: /var/tmp/test_ansible/roles/nginx/files/index.html
+    dest: /var/www/index.html
+
+- name: Copy template nginx
+  template:
+    srs: nginx.conf
+    dest: /etc/nginx/sites-enables/site.conf
+
+- name: Nginx enable
+  systemd:
+    name: nginx
+    state: started
+    enable: yes
+
+- name: Daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: Remove tmp
+  file:
+    path: /var/tmp/test_ansible
+    state: absent

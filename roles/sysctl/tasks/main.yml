@@ -1,0 +1,20 @@
+---
+- name: System.conf NOFILE
+  lineinfile:
+    path: /etc/systcl.conf
+    line: fs.file-max = 1204000
+    create: yes
+
+- name: System.conf NPROC
+  lineinfile:
+    path: /etc/sysctl.conf
+    line: somaxconn = 65535
+    create: yes
+
+- name: Daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: Daemon reload
+  systemd:
+    daemon_reexec: yes

@@ -1,0 +1,10 @@
+---
+- name: TEST
+  hosts: all
+
+  roles:
+    - ssh
+    - install
+    - nginx
+    - sysctl
+
